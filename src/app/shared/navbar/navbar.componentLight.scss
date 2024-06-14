@@ -1,0 +1,43 @@
+nav {
+  background-color: var(--colorLight);
+  box-shadow: 0px 0px 10px black;
+}
+nav .links a,
+nav .dropdown-links a {
+  color: var(--colorDark);
+}
+
+nav .dropdown-links li:hover > a,
+nav .dropdown-links li a:focus {
+  color: var(--colorDarkText);
+}
+
+nav .links li:hover,
+nav .links li a:focus{
+  text-shadow: 0px 0px 10px var(--colorDark);
+
+}
+nav .dropdown-links li:hover,
+nav .dropdown-links li a:focus {
+  background-color: var(--colorDark);
+}
+nav .btn:not(.lang-btn) {
+  color: var(--colorDark);
+}
+nav .btn:hover:not(.lang-btn),
+nav .btn:focus:not(.lang-btn) {
+  text-shadow: 0px 0px 10px var(--colorDark);
+}
+nav .dropdown-links {
+  background-color: var(--colorLight);
+  border: 1px solid var(--colorDark);
+}
+nav .dropdown-links::-webkit-scrollbar-thumb {
+  background-color: var(--colorDark);
+  border-radius: 10px;
+}
+
+nav .lang-dropdown{
+  background-color: var(--colorLight);
+  border: 1px solid var(--colorDark);
+}

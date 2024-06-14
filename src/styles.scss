@@ -1,0 +1,241 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;900&family=Roboto:wght@400;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap");
+html,
+body {
+  font-size: 10px;
+  width: 100%;
+  height: 100%;
+}
+body {
+  overflow-x: hidden !important;
+  overflow-y: auto;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+@mixin font-eb-garamond {
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.eb-garamond {
+  @include font-eb-garamond();
+}
+
+@mixin font-poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.poppins-regular {
+  @include font-poppins-regular();
+}
+
+@mixin font-poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+.poppins-medium {
+  @include font-poppins-medium();
+}
+@mixin font-poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+.poppins-black {
+  @include font-poppins-black();
+}
+
+@mixin font-roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.roboto-regular {
+  @include font-roboto-regular();
+}
+
+@mixin font-roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-black {
+  @include font-roboto-black();
+}
+
+:root {
+  --colorSuccess: #32cd32;
+  --colorDanger: #ff5252;
+  --colorAccent: #2d5db8;
+  --colorAccent2: #0e45aa;
+  --colorSecondary: #343a40;
+  --colorLight: #ffffff;
+  --colorLightSecondary: #f5f5f5;
+  --colorDark: #212529;
+  --colorDark2: #121212;
+
+  --colorOrange: #ffa500;
+
+  --colorDynamicText: #ffffff;
+
+  --navbar-height:80px;
+}
+
+.d-none {
+  display: none !important;
+}
+.user-select-none {
+  user-select: none;
+}
+.cursor-def {
+  cursor: default !important;
+}
+
+body::-webkit-scrollbar {
+  background-color: transparent;
+  width: 10px;
+}
+.btn {
+  border: none;
+  background-color: transparent;
+}
+.btn:focus {
+  outline: none;
+}
+/*scrollAnim*/
+
+.scroll-anim-top-bottom {
+  transform: translateY(-100px);
+}
+.scroll-anim-bottom-top {
+  transform: translateY(100px);
+}
+.scroll-anim-start-end {
+  transform: translateX(-100px);
+}
+.scroll-anim-end-start {
+  transform: translateX(100px);
+}
+.scroll-anim-blur {
+  filter: blur(15px);
+}
+.scroll-anim-opacity {
+  opacity: 0;
+}
+.scroll-anim {
+  transition-delay: 0s;
+  transition: 1.5s;
+}
+.scroll-anim-replay {
+}
+.no-scroll-anim-mobile {
+}
+
+.scroll-anim-show {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateY(0);
+  transform: translateX(0);
+  transition: 0;
+}
+
+/*scrollAnim*/
+/*theme-dark*/
+
+body.theme-dark {
+  background-color: var(--colorDark);
+  color: var(--colorLight);
+}
+body.theme-dark::-webkit-scrollbar-thumb {
+  background-color: var(--colorLight);
+}
+/*theme-dark*/
+
+/*theme-light*/
+
+body.theme-light {
+  background-color: var(--colorLight);
+  color: var(--colorDark);
+}
+body.theme-light::-webkit-scrollbar-thumb {
+  background-color: var(--colorDark);
+}
+/*theme-light*/
+
+@media screen and (max-width: 800px) {
+  html,
+  body {
+    font-size: 5px;
+  }
+}
+
+.w-50-lpc {
+  @media screen and (min-width: 1500px) {
+    width: 50%;
+  }
+}
+.w-25-lpc {
+  @media screen and (min-width: 1500px) {
+    width: 25%;
+  }
+}
+.w-40-lpc {
+  @media screen and (min-width: 1500px) {
+    width: 40%;
+  }
+}
+.w-100-lpc {
+  @media screen and (min-width: 1500px) {
+    width: 100%;
+  }
+}
+
+.w-50-pc {
+  @media screen and (min-width: 1000px) and (max-width: 1500px) {
+    width: 50%;
+  }
+}
+.w-25-pc {
+  @media screen and (min-width: 1000px) and (max-width: 1500px) {
+    width: 25%;
+  }
+}
+.w-40-pc {
+  @media screen and (min-width: 1000px) and (max-width: 1500px) {
+    width: 40%;
+  }
+}
+.w-100-pc {
+  @media screen and (min-width: 1000px) and (max-width: 1500px) {
+    width: 100%;
+  }
+}
+
+.w-50-mobile {
+  @media screen and (max-width: 1000px) {
+    width: 50%;
+  }
+}
+.w-25-mobile {
+  @media screen and (max-width: 1000px) {
+    width: 25%;
+  }
+}
+.w-40-mobile {
+  @media screen and (max-width: 1000px) {
+    width: 40%;
+  }
+}
+.w-100-mobile {
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
+}

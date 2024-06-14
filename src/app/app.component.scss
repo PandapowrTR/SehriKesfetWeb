@@ -1,0 +1,334 @@
+/*loading*/
+
+.loading-container {
+  z-index: 999999;
+  width: 40%;
+  position: fixed;
+  top: 80px;
+  width: 100%;
+  height: calc(100% - 80px);
+  background-color: rgba(0, 0, 0, 0.603);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loading-container > div {
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+.loading-container i {
+  font-size: 100px;
+  animation: rool 1s infinite;
+  animation-timing-function: linear;
+}
+@keyframes rool {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loading-container h1 {
+  font-size: 60px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/*loading theme-dark*/
+
+.loading-container.theme-dark > div {
+  background-color: var(--colorDark);
+  color: var(--colorLight);
+}
+
+/*loading theme-dark*/
+
+/*loading theme-light*/
+
+.loading-container.theme-light > div {
+  background-color: var(--colorLightSecondary);
+  color: var(--colorTextDark);
+}
+
+/*loading theme-light*/
+
+@media screen and (max-width: 1000px) {
+  .loading-container h1 {
+    font-size: 40px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  .loading-container i {
+    font-size: 60px;
+  }
+}
+/*loading*/
+
+/*alert*/
+
+.alert-container {
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  pointer-events: none;
+  position: fixed;
+  width: 30%;
+  height: 500px;
+  left: 50%;
+  top: 100px;
+  transform: translate(-50%);
+  row-gap: 10px;
+  overflow: hidden;
+}
+.alert-container .alert {
+  pointer-events: all;
+  border-radius: 10px;
+  width: 100%;
+  min-height: calc(100% / 6);
+  max-height: calc(100% / 2);
+  display: flex;
+  align-items: center;
+}
+.alert-container .alert i:first-child {
+  margin-inline: 10px;
+}
+.alert-container .alert i {
+  font-size: 25px;
+}
+.alert-container .alert button {
+  cursor: pointer;
+  margin-left: 20px;
+  margin-right: 10px;
+  border: none;
+  background-color: transparent;
+}
+.alert-container .alert button:focus {
+  outline: none;
+}
+.alert-container .alert .content {
+  width: 100%;
+  height: 100%;
+}
+.alert-container .alert .content .body {
+  max-height: 100px;
+  overflow-y: scroll;
+}
+.alert-container .alert .content .body::-webkit-scrollbar {
+  background-color: transparent;
+  width: 10px;
+}
+.alert-container .alert .content .body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+.alert-container .alert .content h1 {
+  font-size: 20px;
+}
+.alert-container .alert .content hr {
+  width: 70%;
+}
+.alert-container .alert .content p {
+  font-size: 15px;
+}
+
+.alert-container .alert.error {
+  background-color: var(--colorDanger);
+}
+.alert-container.theme-dark .alert.error * {
+  color: var(--colorDark);
+}
+.alert-container.theme-light .alert.error * {
+  color: var(--colorLight);
+}
+
+.alert-container .alert.warning {
+  background-color: rgb(202, 202, 0);
+}
+.alert-container.theme-dark .alert.warning * {
+  color: var(--colorDark);
+}
+.alert-container.theme-light .alert.warning * {
+  color: var(--colorSecondary);
+}
+
+.alert-container .alert.info {
+  background-color: var(--colorAccent);
+}
+.alert-container.theme-dark .alert {
+  border: 1px solid var(--colorLight);
+}
+.alert-container.theme-light .alert {
+  border: 1px solid var(--colorDark);
+}
+.alert-container.theme-dark .alert.info * {
+  color: var(--colorDark);
+}
+.alert-container.theme-light .alert.info * {
+  color: var(--colorLight);
+}
+.alert-container.theme-dark .alert .content .body::-webkit-scrollbar-thumb {
+  background-color: var(--colorDark);
+}
+.alert-container.theme-light .alert .content .body::-webkit-scrollbar-thumb {
+  background-color: var(--colorLight);
+}
+@media screen and (max-width: 1000px) {
+  .alert-container {
+    width: 60%;
+  }
+}
+/*alert*/
+
+/*modal*/
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.modal-container > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-container > div .modal {
+  padding: 20px;
+  margin-top: 100px;
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-container > div .modal .title {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  font-size: clamp(15px, 4vw, 30px);
+  margin-bottom: 30px;
+  max-height: 20%;
+}
+.modal-container > div .modal .title h1 {
+  max-width: 80%;
+}
+.modal-container > div .modal .title button {
+  cursor: pointer;
+  font-size: clamp(45px, 4vw, 50px);
+  margin-left: auto;
+  transition: 0.5s;
+}
+.modal-container > div .modal .title button:hover {
+  transform: rotate(180deg);
+}
+
+.modal-container > div .modal .body {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100%;
+  gap: 10px;
+}
+.modal-container > div .modal .body::-webkit-scrollbar {
+  background-color: transparent;
+  width: 10px;
+}
+.modal-container > div .modal .body input {
+  padding: 5px;
+  padding-left: 10px;
+  font-size: clamp(15px, 8vw, 25px);
+  border-radius: 10px;
+  color: var(--colorDynamicText);
+  background-color: var(--colorDynamicBackground);
+  border: none;
+  border: 1px solid var(--colorDynamicText);
+}
+.modal-container > div .modal .body input:focus {
+  outline: none;
+}
+.modal-container > div .modal .body p {
+  font-size: 20px;
+}
+
+.modal-container > div .modal .footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 30px;
+  gap: 10px;
+}
+.modal-container > div .modal .footer button {
+  cursor: pointer;
+  font-size: 22px;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+.modal-container > div .modal .footer button:hover,
+.modal-container > div .modal .footer button:focus {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 10px black;
+}
+.modal-container > div .modal .footer button.danger {
+  background-color: var(--colorDanger);
+}
+.modal-container > div .modal .footer button.info {
+  background-color: var(--colorAccent);
+}
+.modal-container > div .modal .footer button.success {
+  background-color: var(--colorSuccess);
+}
+
+.modal-container.theme-dark .modal {
+  background-color: var(--colorDark);
+  color: var(--colorLight);
+}
+.modal-container.theme-dark .modal .title::after {
+  border-color: white;
+}
+.modal-container.theme-dark .modal .title button {
+  color: var(--colorLight);
+}
+.modal-container.theme-dark .modal .body::-webkit-scrollbar-thumb {
+  background-color: var(--colorLight);
+}
+.modal-container.theme-dark .modal .footer button {
+  color: var(--colorLight);
+}
+
+.modal-container.theme-light .modal {
+  background-color: var(--colorLight);
+  color: var(--colorDark);
+}
+.modal-container.theme-light .modal .title::after {
+  border-color: black;
+}
+.modal-container.theme-light .modal .title button {
+  color: var(--colorDark);
+}
+.modal-container.theme-light .modal .body::-webkit-scrollbar-thumb {
+  background-color: var(--colorDark);
+}
+.modal-container.theme-light .modal .footer button {
+  color: var(--colorDark);
+}
+/*modal*/

@@ -1,0 +1,49 @@
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<main class="theme-changer theme-dark">
+    <div class="chat" *ngIf="messages.length != 0">
+        <div class="message reduced" [class.last-message]="i == messages.length -1" #message [class]="'role-'+m['role']"
+            *ngFor="let m of messages; let i = index">
+            <img *ngIf="m['role'] == 'assistant'" src="../../../assets/imgs/ArifLogoChatBG.png">
+            <pre *ngIf="m['role'] == 'user'">{{m['content']}}</pre>
+            <button *ngIf="message.clientHeight > 250 || message.scrollHeight > 250" #expandBtn
+                (click)="expandChat(expandBtn, message)" class="btn"><span class="material-symbols-outlined"
+                    style="font-size: clamp(15px, 8vw, 60px);">
+                    expand_more
+                </span></button>
+            <pre *ngIf="m['role'] == 'assistant'">{{m['content']}}</pre>
+            <i *ngIf="m['role'] == 'user'" class="bi bi-person-circle"></i>
+        </div>
+    </div>
+    <div class="controls">
+        <div class="main">
+            <button (click)="clearChat()" *ngIf="messages.length != 0"
+                class="btn clear-chat-btn">{{translate.getTranslate('Clear Chat')}}<span
+                    class="material-symbols-outlined">
+                    delete_forever
+                </span></button>
+            <div class="token-container" style="max-width: 150px; user-select: none;">
+                <h1 class="poppins-regular">{{translate.getTranslate('Remaining Points')}}</h1>
+                <p class="poppins-regular">{{token['tokens'] == -1 ?  translate.getTranslate('infinite') : token['tokens']}}</p>
+            </div>
+            <div class="text-area-container">
+                <textarea
+                    [placeholder]="messages.length != 0 ? translate.getTranslate('Message Arif') + '...' : ''"
+                    #userInputTextArea (keydown)="textAreaKeyboardInput(userInputTextArea, $event)"
+                    (focus)="focusTextArea()" (blur)="unfocusTextArea()" class="user-input"></textarea>
+                <p class="placeholder">{{currentExampleQuestion[translate.getCurrentLang()]}}</p>
+            </div>
+            <button (click)="sendMessage(userInputTextArea)" class="btn send-btn"><span
+                    class="material-symbols-outlined">
+                    send
+                </span></button>
+        </div>
+        <p>{{translate.getTranslate('aiPlanDayChatGPTInfo')}}</p>
+    </div>
+    <div class="greet" *ngIf="messages.length == 0">
+        <img src="../../../assets/imgs/ArifLogoChatBG.png">
+        <h1>{{translate.getTranslate('ArifInfo')}}</h1>
+        <button (click)="focusTextArea(currentExampleQuestion[translate.getCurrentLang()])"
+            class="btn">{{translate.getTranslate('Ask Something')}}!</button>
+    </div>
+</main>

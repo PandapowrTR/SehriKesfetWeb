@@ -1,0 +1,438 @@
+@use "../../../styles.scss";
+
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--colorDynamicText);
+}
+label {
+  margin-top: 10px;
+}
+input {
+  margin-bottom: 10px;
+}
+main {
+  margin-top: calc(var(--navbar-height) + 10px);
+  padding-bottom: 200px;
+  & > .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    h1 {
+      user-select: none;
+      font-size: clamp(75px, 8vw, 125px);
+      text-align: center;
+    }
+    a {
+      user-select: none;
+      font-size: clamp(30px, 8vw, 40px);
+      text-decoration: none;
+      color: var(--colorLight);
+      background-color: var(--colorAccent);
+      padding: 5px;
+      border-radius: 10px;
+      transition: 0.5s;
+      &:hover {
+        transform: scale(1.1);
+      }
+      margin-bottom: 10px;
+    }
+    .options {
+      user-select: none;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      &::-webkit-scrollbar-thumb {
+        background-color: red;
+      }
+      margin: 10px;
+      @include styles.font-roboto-regular();
+      & > div:not(& > div:last-child) {
+        // border-right: 1px solid var(--colorDynamicText);
+        margin-right: 5px;
+        padding: 5px;
+      }
+      .language-option {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: var(--colorDynamicText);
+          font-size: clamp(25px, 8vw, 35px);
+          cursor: pointer;
+          & > img {
+            margin-inline: 5px;
+            height: 50px;
+          }
+        }
+
+        .changeLanguage {
+          z-index: 999;
+          background-color: var(--colorDynamicBackground);
+          border: 1px solid var(--colorDynamicText);
+          border-radius: 10px;
+          position: absolute;
+          width: 100px;
+          padding: 5px;
+          img {
+            width: 100%;
+            height: 100%;
+            margin-block: 5px;
+          }
+          li {
+            list-style: none;
+          }
+        }
+        .dissmissContainer {
+          z-index: 998;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          position: fixed;
+          background-color: transparent;
+        }
+      }
+      .active-option {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        label {
+          cursor: pointer;
+          font-size: clamp(30px, 8vw, 50px);
+        }
+        input {
+          cursor: pointer;
+          width: 20px;
+          height: 20px;
+        }
+      }
+      .save-btn,
+      .load-file-btn,
+      .delete-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        button {
+          color: var(--colorLight);
+          font-size: clamp(25px, 4vw, 35px);
+          cursor: pointer;
+          background-color: var(--colorAccent);
+          padding: 10px;
+          border-radius: 10px;
+        }
+      }
+      .delete-btn {
+        button {
+          background-color: var(--colorDanger);
+        }
+      }
+    }
+  }
+  & > hr {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    margin-block: 10px;
+  }
+
+  .add-new-item {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    & > button {
+      cursor: pointer;
+      color: var(--colorDynamicText);
+      font-size: clamp(20px, 4vw, 30px);
+      border: 1px solid var(--colorDynamicText);
+      padding: 5px;
+      border-radius: 5px;
+    }
+  }
+  & > .add-new-item {
+    margin-top: 10px;
+  }
+
+  .delete-item {
+    align-self: flex-start;
+    cursor: pointer;
+    color: var(--colorDanger);
+    font-size: clamp(20px, 4vw, 30px);
+    border: 1px solid var(--colorDanger);
+    padding: 10px;
+  }
+  & .delete-item:not(.body > .delete-item) {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .item {
+    user-select: none;
+    margin-inline: 10px;
+    position: relative;
+    border: 2px solid var(--colorAccent);
+    padding: 5px;
+    margin-bottom: 10px;
+    & > .info-title {
+      margin-bottom: 10px;
+      h1 {
+        text-align: center;
+        @include styles.font-poppins-regular();
+        font-size: clamp(25px, 4vw, 60px);
+        user-select: none;
+      }
+      hr {
+        width: 20%;
+        margin-inline: auto;
+        margin-bottom: 30px;
+      }
+    }
+    input {
+      &:focus {
+        outline: none;
+      }
+      background-color: var(--colorDynamicBackground);
+      border: 1px solid var(--colorDynamicText);
+      color: var(--colorDynamicText);
+      font-size: clamp(25px, 4vw, 35px);
+      padding: 5px;
+      @include styles.font-roboto-regular();
+    }
+    label {
+      font-size: clamp(25px, 4vw, 35px);
+      @include styles.font-roboto-regular();
+    }
+    height: fit-content;
+    .dropdown-btn {
+      color: var(--colorAccent);
+      border: 1px solid var(--colorAccent);
+      padding: 10px;
+      font-size: clamp(20px, 4vw, 30px);
+      cursor: pointer;
+      width: clamp(150px, 4vw, 250px);
+    }
+    .dropdown-container {
+      display: flex;
+      flex-direction: column;
+      position: relative !important;
+    }
+    .dropdown-list {
+      width: auto;
+      max-height: 20vw;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      position: absolute !important;
+      bottom: 0;
+      z-index: 99;
+      background-color: var(--colorDynamicBackground);
+      gap: 10px;
+      border: 1px solid var(--colorDynamicText);
+      li {
+        text-align: center;
+        padding: 5px;
+        cursor: pointer;
+        * {
+          cursor: pointer;
+        }
+        &:hover {
+          background-color: var(--colorAccent);
+        }
+        list-style: none;
+        button {
+          font-size: clamp(20px, 8vw, 30px);
+          border: none;
+          background-color: transparent;
+          color: var(--colorDynamicText);
+        }
+        &.selected {
+          background-color: var(--colorAccent2);
+        }
+      }
+    }
+    .dissmissContainer {
+      z-index: 98;
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    .head {
+      position: relative;
+      padding: 5px;
+      border: 1px solid var(--colorDynamicText);
+      .left,
+      .right {
+        .dropdown-list {
+          bottom: -60%;
+        }
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        & > div,
+        & > div > div {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+      .right {
+        .icon {
+          width: 100%;
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 10px;
+          & > div {
+            display: flex;
+            flex-direction: column;
+          }
+          .dropdown-list {
+            bottom: -100%;
+          }
+        }
+      }
+    }
+    .body {
+      border: 1px solid var(--colorDynamicText);
+      padding: 5px;
+      padding-top: 10px;
+      .body-item {
+        border: 1px solid var(--colorDynamicText);
+        padding: 5px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        .dropdown-container {
+          align-self: flex-start;
+        }
+        .values {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 10px;
+          textarea {
+            background-color: var(--colorDynamicBackground);
+            color: var(--colorDynamicText);
+            font-size: clamp(20px, 4vw, 30px);
+            resize: none;
+            min-height: 200px;
+          }
+          & > div > div,
+          .input-container {
+            //input container
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
+          .selected-classes {
+            margin-top: 10px;
+            @include styles.font-roboto-regular();
+          }
+          .class-list {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            flex-wrap: wrap;
+            max-width: 100%;
+            max-height: 150px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding-block: 10px;
+            li {
+              background-color: var(--colorAccent);
+              @include styles.font-roboto-regular();
+              list-style: none;
+              font-size: clamp(20px, 8vw, 30px);
+              padding: 5px;
+              button {
+                border-radius: 10px;
+                cursor: pointer;
+                background-color: var(--colorDanger);
+                padding: 5px;
+                color: var(--colorLight);
+                font-size: clamp(20px, 8vw, 30px);
+                border: 1px solid var(--colorLight);
+              }
+            }
+          }
+          & > div {
+            height: fit-content;
+            padding: 5px;
+            border: 1px solid var(--colorDynamicText);
+            & > h1 {
+              text-align: center;
+              font-size: clamp(35px, 8vw, 45px);
+              @include styles.font-poppins-regular();
+            }
+            & > hr {
+              margin-bottom: 10px;
+            }
+          }
+          .image {
+            max-width: 40vw;
+          }
+          .title {
+          }
+          &.image-list .content {
+            display: flex;
+            flex-direction: column;
+            & > div {
+              gap: 30px;
+              display: flex;
+              flex-direction: row;
+              flex-wrap: wrap;
+              & > div {
+                border: 2px solid var(--colorDynamicText);
+                padding: 5px;
+              }
+            }
+            & > button {
+              width: fit-content;
+              margin-left: auto;
+              margin-right: auto;
+              margin-block: 10px;
+              cursor: pointer;
+              padding: 5px;
+              color: var(--colorDynamicText);
+              border: 1px solid var(--colorDynamicText);
+              font-size: clamp(25px, 8vw, 35px);
+            }
+          }
+
+          &.plan-my-day {
+            & > div{
+              display: flex;
+              flex-wrap: wrap;
+              flex-direction: column;
+              & > div > div{
+                display: flex;
+                flex-direction: column;
+              }
+            }
+            & .add-activity{
+              align-self: center;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

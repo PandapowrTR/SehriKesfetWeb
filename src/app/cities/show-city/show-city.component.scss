@@ -1,0 +1,376 @@
+@use "../../../styles";
+main {
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+  min-height: 80dvh;
+  .container {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    h1 {
+      color: var(--colorLight);
+      user-select: none;
+      font-size: clamp(120px, 8vw, 250px);
+    }
+    h2 {
+      color: var(--colorLight);
+      text-align: center;
+      width: 80%;
+      user-select: none;
+      font-size: clamp(25px, 2vw, 30px);
+      max-lines: 2;
+      height: 20%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      pointer-events: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      text-overflow: ellipsis;
+      margin-bottom: 10px;
+    }
+    button {
+      cursor: pointer;
+      background-color: var(--colorOrange);
+      color: var(--colorLight);
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 25px;
+    }
+    .background {
+      overflow: hidden;
+      display: flex;
+      height: 90%;
+      z-index: -1;
+      position: absolute;
+      gap: 10px;
+      img {
+        max-width: 40vw;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+main {
+  .heading {
+    margin-top: 20px;
+    img {
+      border-radius: 10px;
+    }
+    & > .head {
+      position: relative;
+      padding-bottom: 20px;
+      &::after {
+        align-self: center;
+        position: absolute;
+        bottom: 0;
+        content: "";
+        width: 98%;
+        border-bottom: 1px solid white;
+      }
+      user-select: none;
+      display: flex;
+      align-items: center;
+      font-size: clamp(30px, 2vw, 100px);
+      margin-bottom: 20px;
+      .left {
+        margin-left: 10px;
+        margin-right: auto;
+        p {
+          font-size: clamp(30px, 1vw, 80px);
+        }
+        max-width: 50%;
+        @media screen and (max-width: 1000px) {
+          & {
+            max-width: 80%;
+          }
+        }
+      }
+      .center {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .right {
+        margin-left: auto;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 20px;
+      }
+
+      @media screen and (max-width: 1000px) {
+        & {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+      span {
+        font-size: clamp(70px, 2vw, 150px);
+      }
+      p {
+        font-size: clamp(20px, 2vw, 80px);
+      }
+    }
+
+    & > .body {
+      &.overflow-scroll {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        &::-webkit-scrollbar {
+          background-color: transparent;
+          width: 10px;
+          border-radius: 10px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: var(--colorDynamicText);
+          border-radius: 10px;
+        }
+      }
+      display: flex;
+      flex-direction: column;
+      img {
+        max-width: 100%;
+      }
+      .item {
+        display: flex;
+        flex-direction: column;
+      }
+      & .item > * {
+        margin-top: 20px;
+      }
+      & .item > *:first-of-type {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@mixin image-list-horizontal {
+  border-radius: 10px;
+  & > h1 {
+    @include styles.font-poppins-medium();
+    font-size: clamp(50px, 1vw, 80px);
+    margin-left: 10px;
+    user-select: none;
+    &.center {
+      text-align: center;
+    }
+  }
+  .body {
+    user-select: none;
+    padding-top: 15px;
+    padding: 10px;
+    width: 100%;
+    height: 400px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    gap: 10px;
+
+    &::-webkit-scrollbar {
+      background-color: transparent;
+      width: 10px;
+      height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--colorOrange);
+      border-radius: 10px;
+    }
+    a {
+      min-width: 300px;
+      position: relative;
+      transition: 0.5s;
+    }
+    a:hover {
+      transform: scale(1.1);
+      box-shadow: 0px 0px 10px var(--colorLight);
+    }
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .title {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      font-size: clamp(30px, 1vw, 50px);
+      text-align: center;
+      color: var(--colorLight);
+    }
+  }
+}
+@mixin image-list-vertical {
+  border-radius: 10px;
+  & > h1 {
+    @include styles.font-poppins-medium();
+    font-size: clamp(50px, 1vw, 80px);
+    margin-left: 10px;
+    user-select: none;
+    &.center {
+      text-align: center;
+    }
+  }
+  .body {
+    user-select: none;
+    padding: 10px;
+    border-radius: 10px;
+    display: block;
+    overflow-x: visible;
+    overflow-y: scroll;
+    max-height: 500px;
+    align-self: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    &::-webkit-scrollbar {
+      background-color: transparent;
+      width: 10px;
+      height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--colorOrange);
+      border-radius: 10px;
+    }
+    a {
+      min-width: 300px;
+      position: relative;
+      transition: 0.5s;
+    }
+    a:hover {
+      transform: scale(1.1);
+      box-shadow: 0px 0px 10px var(--colorLight);
+    }
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    .title {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      font-size: clamp(30px, 1vw, 50px);
+      text-align: center;
+      color: var(--colorLight);
+    }
+    a:first-child img {
+      margin-top: 10px;
+    }
+  }
+}
+
+main {
+  .image-list-horizontal {
+    @include image-list-horizontal();
+    &.vertical-on-pc {
+      @media screen and (max-width: 900px) {
+        @include image-list-vertical();
+      }
+    }
+  }
+  .image-list-vertical {
+    @include image-list-vertical();
+    &.horizonal-on-mobile {
+      @media screen and (min-width: 900px) {
+        @include image-list-horizontal();
+        &.horizontal-on-pc .body a:first-child img {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .text {
+    margin-inline: 10px;
+    font-size: clamp(25px, 1vw, 70px);
+    .title-img {
+      display: flex;
+      flex-direction: column;
+    }
+    pre:not(pre.no-wrap) {
+      text-wrap: wrap;
+    }
+    img {
+      user-select: none;
+      margin-inline: 10px;
+      max-width: 100%;
+    }
+    .left-img {
+      float: left;
+    }
+    .right-img {
+      float: right;
+    }
+    h1 {
+      @include styles.font-poppins-medium();
+      font-size: clamp(40px, 1vw, 80px);
+    }
+  }
+
+  .plan-my-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-inline: 10px;
+    & > h1 {
+      @include styles.font-poppins-medium();
+      font-size: clamp(40px, 8vw, 70px);
+      text-align: center;
+      user-select: none;
+    }
+    p {
+      @include styles.font-roboto-regular();
+      font-size: clamp(20px, 1vw, 60px);
+    }
+    .plan-box {
+      margin-top: 30px;
+      cursor: pointer;
+      height: 300px;
+      width: 500px;
+      position: relative;
+      
+      img {
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+        &.active{
+          display: block;
+        }
+      }
+      h1{
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        @include styles.font-poppins-medium();
+        font-size: clamp(30px, 8vw, 50px);
+        text-align: center;
+        color: var(--colorDynamicText);
+      }
+    }
+  }
+}
+main {
+  .theme-dark {
+  }
+  .theme-light {
+  }
+}

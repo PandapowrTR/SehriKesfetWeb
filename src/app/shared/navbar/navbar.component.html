@@ -1,0 +1,26 @@
+<nav #nav class="theme-changer theme-dark">
+    <div class="brand"><a tabindex="100" routerLink="/"><img
+                src="../../../assets/imgs/sehriKesfetLogo.png"></a>
+    </div>
+    <ol #links id="links" class="links poppins-medium">
+        <li><a (click)="!links.classList.contains('links') ? toggleDropdown(true): unfocus()" tabindex="103" routerLink="/createPlace" *ngIf="userAdmin()">{{getTranslate("Create Place")}}</a>
+        </li>
+    </ol>
+    <div class="dropdown dropdown-on">
+        <label for="linksCbx" class="btn"><i class="bi bi-list"></i></label>
+        <input tabindex="104" id="linksCbx" (click)="toggleDropdown()" style="display: none;" type="checkbox">
+    </div>
+    <div class="dropdown-container dropdown-on d-none" (click)="toggleDropdown(true)">
+    </div>
+    <button tabindex="106" (click)="toggleTheme()" class="theme-btn btn"><i *ngIf="nav.classList.contains('theme-dark')"
+            class="bi bi-moon"></i><i *ngIf="!nav.classList.contains('theme-dark')"
+            class="bi bi-brightness-high"></i></button>
+    <a (click)="unfocus()" routerLink="/account" tabindex="108" style="margin-top: 5px;" class="account-btn btn"><i *ngIf="!userLogedIn()" class="bi bi-person-fill-slash"></i><i *ngIf="userLogedIn()" class="bi bi-person-fill-check"></i></a>
+    <button tabindex="109" (click)="toggleLangDropdown()" style="margin-top: 5px;" class="lang-btn btn"><img class="lang-img"
+            [src]="getTranslate('flag')"></button>
+    <div class="lang-dropdown-container dropdown-on d-none" (click)="toggleLangDropdown()"></div>
+    <ol class="lang-dropdown d-none">
+        <li *ngFor="let tra of translates"><button tabindex="-1" class="lang-btn btn"
+                (click)="setCurrentLang(tra[0])"><img class="lang-img" [src]="tra[1]['flag']"></button></li>
+    </ol>
+</nav>

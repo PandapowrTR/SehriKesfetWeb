@@ -1,0 +1,82 @@
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<main class="theme-changer theme-dark">
+    <div class="container" *ngIf="currentCity">
+        <h1 class="poppins-medium">{{ currentCity["names"][getCurrentLang()] }}</h1>
+        <h2 class="poppins-regular auto-scroll">
+            {{ currentCity["texts"][getCurrentLang()] }}
+        </h2>
+        <div class="background">
+            <img [src]=" i['imageUrl']" alt="" *ngFor="let i of images" />
+        </div>
+        <button (click)="focusTo('#start')" class="btn user-select-none roboto-regular">
+            {{
+            getTranslate(
+            "Start Exploring"
+            )
+            }}!
+        </button>
+    </div>
+    <div class="heading" [id]="h['start']" *ngFor="let h of pageContents">
+        <div class="head">
+            <div class="left">
+                <h1 [class]="h['head']['left']['title']['class']">
+                    {{h["head"]["left"]["title"]['texts'][getCurrentLang()]}}</h1>
+                <p [class]="h['head']['left']['subtitle']['class']">
+                    {{h["head"]["left"]["subtitle"]['texts'][getCurrentLang()]}}
+                </p>
+            </div>
+            <div class="center"></div>
+            <div class="right">
+                <span class="material-symbols-outlined"
+                    *ngIf="h['head']['right']['icon']['type'] == 'google'">{{h['head']['right']['icon']['content']}}</span>
+                <i [class]="h['head']['right']['icon']['content']"
+                    *ngIf="h['head']['right']['icon']['type'] == 'bootstrap'"></i>
+                <div class="audio" *ngIf="h['head']['right']['audios']">
+                    <audio [src]="h['head']['right']['audios'][getCurrentLang()]" controls></audio>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <div class="item" *ngFor="let item of h['body']">
+                <div class="text" *ngIf="item['type'] == 'text'">
+                    <div [class.title-img]="item['image']['type']=='title-image'">
+                        <img [class]="item['image']['class']" [style]="item['image']['style']"
+                            [src]="item['image']['src']" [alt]="item['image']['alt']">
+                    </div>
+                    <h1 class="poppins-medium">{{item['title']['texts'][getCurrentLang()]}}</h1>
+                    <p class="roboto-regular">{{item['content']['texts'][getCurrentLang()]}}</p>
+                </div>
+                <div [class]="item['class']" *ngIf="item['type'] == 'image-list'">
+                    <h1 [class]="item['title']['class']">{{item['title']['texts'][getCurrentLang()]}}</h1>
+                    <div class="body">
+                        <ng-container *ngFor="let ili of item['content']">
+                            <a [target]="ili['target']" *ngIf="ili['url']" [href]="ili['url']"><img [src]="ili['image']"
+                                    alt="" />
+                                <div class="title">
+                                    <h1>{{ili['titles'][getCurrentLang()]}}</h1>
+                                </div>
+                            </a>
+                            <a [target]="ili['target']" *ngIf="!ili['url']" [routerLink]="ili['inWebsiteUrl']"><img
+                                    [src]="ili['image']" alt="" />
+                                <div class="title">
+                                    <h1>{{ili['titles'][getCurrentLang()]}}</h1>
+                                </div>
+                            </a>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="plan-my-day" *ngIf="item['type'] == 'plan-my-day'">
+                    <h1>{{getTranslate('Plan My Day')}}</h1>
+                    <p>{{getTranslate('planMyDayDescription')}}</p>
+                    <a [routerLink]="currentCity['link']+'/plan-my-day'" class="plan-box">
+                        <img *ngFor="let i of currentCity['images']; let ci = index" [src]="i['imageUrl']"
+                            [class.active]="ci == 0" [style]="'object-position:'+i['imagePosition']+';'">
+                        <h1>{{getTranslate('Start Your Plan')}}</h1>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 100px"></div>
+</main>

@@ -1,0 +1,10 @@
+<main class="theme-changer theme-dark">
+    <div class="greet-div">
+        <h1 class="poppins-medium">{{getTranslate('Welcome')}}!</h1>
+        <p class="poppins-medium">{{getTranslate('Pick a language')}}</p>
+    </div>
+    <div class="btns">
+        <a [class.glow]="getCurrentLang() == tra[0]" *ngFor="let tra of getAllTranslates()"
+            (click)="navigateToMainPage(tra[0])"><img src="" alt=""><img class="lang-img" [src]="tra[1]['flag']"></a>
+    </div>
+</main>

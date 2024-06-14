@@ -1,0 +1,104 @@
+<main class="theme-changer theme-dark no-child-root">
+    <h1>{{translate.getTranslate("Create Place")}}</h1>
+    <button #createNewOneBtn
+        (click)="toggleDropdown(createNewOneBtn, newOneContainer); toggleSelections(newOneContainer, createNewOneBtn, continueContainer, continueBtn)"
+        class="btn option-btn">{{translate.getTranslate('Create New One')}}!<i
+            class="bi bi-arrow-down-short"></i></button>
+    <div #newOneContainer class="new-one d-none">
+        <div class="container">
+            <div class="input-container" *ngFor="let l of translate.getAllLanguages()">
+                <label [for]="'placeName'+l">{{translate.getTranslate("Place Name") +" | "+
+                    translate.getTranslate(l)}}</label>
+                <input #placeName (input)="newPlace['placeNames'][l] = placeName.value" autocomplete="off" [id]="'placeName'+l" type="text">
+            </div>
+        </div>
+        <div class="input-container">
+            <label for="placeImage">{{translate.getTranslate("Place Image")}}</label>
+            <input #placeImage (change)="placeImageFile = placeImage.files![0]" autocomplete="off" accept=".jpg,.png,jpeg" id="placeImage" type="file">
+        </div>
+        <h1>{{translate.getTranslate("Image Informations")}}</h1>
+        <div class="container">
+            <div class="container">
+                <div class="input-container">
+                    <label [for]="'placeImageIPhotogapherLink'">{{translate.getTranslate("Photographer Link")}}</label>
+                    <input #placeImageIPhotographerLink (input)="newPlace['placeImageInfo']['photographerLink'] = placeImageIPhotographerLink.value" autocomplete="off" [id]="'placeImageIPhotogapherLink'" type="url">
+                </div>
+                <div class="input-container">
+                    <label [for]="'placeImageIPhotogapherName'">{{translate.getTranslate("Photographer Name")}}</label>
+                    <input #placeImageIPhotographerName (input)="newPlace['placeImageInfo']['photographerName'] = placeImageIPhotographerName.value" autocomplete="off" [id]="'placeImageIPhotogapherName'" type="text">
+                </div>
+            </div>
+            <div class="container">
+                <div class="input-container" *ngFor="let l of translate.getAllLanguages()">
+                    <label [for]="'placeImageITitle'+l">{{translate.getTranslate("Image Title") +" | "+
+                        translate.getTranslate(l)}}</label>
+                    <input #placeImageTTitle (input)="newPlace['placeImageInfo']['titles'][l] = placeImageTTitle.value" autocomplete="off" [id]="'placeImageITitle'+l" type="text">
+                </div>
+            </div>
+            <div class="container">
+                <div class="input-container" *ngFor="let l of translate.getAllLanguages()">
+                    <label [for]="'placeImageIText'+l">{{translate.getTranslate("Image Text") +" | "+
+                        translate.getTranslate(l)}}</label>
+                    <textarea #placeImageIText (input)="newPlace['placeImageInfo']['texts'][l] = placeImageIText.value" [id]="'placeImageIText'+l"></textarea>
+                </div>
+            </div>
+
+        </div>
+        <div class="container">
+            <div class="input-container" *ngFor="let l of translate.getAllLanguages()">
+                <label [for]="'placeText'+l">{{translate.getTranslate("Place Text") +" | "+
+                    translate.getTranslate(l)}}</label>
+                <textarea #placeText (input)="newPlace['placeTexts'][l] = placeText.value" [id]="'placeText'+l"></textarea>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <label for="placeTypeToggleButton">{{translate.getTranslate("Place Type")}}</label>
+            <button id="placeTypeToggleButton" #placeTypeToggleButton
+                (click)="toggleDropdown(placeTypeToggleButton, placeTypeDropdownitems)"
+                class="dropdown btn">{{translate.getTranslate(place)}}<i class="bi bi-arrow-down-short"></i></button>
+            <ol #placeTypeDropdownitems class="dropdown-items d-none">
+                <li *ngFor="let it of placeItems"
+                    (click)="place = it['value']; toggleDropdown(placeTypeToggleButton, placeTypeDropdownitems);  it['value'] == 'city' ? newPlace['parentCityName'] = allPlaces[0][0] : null"
+                    [value]="it['value']" [class.active]="place == it['value']">
+                    {{translate.getTranslate(it['content'])}}</li>
+            </ol>
+            <div *ngIf="!placeTypeDropdownitems.classList.contains('d-none')"
+                (click)="toggleDropdown(placeTypeToggleButton, placeTypeDropdownitems)" class="dissmiss-container">
+            </div>
+        </div>
+        <div *ngIf="place == 'city-area'">
+            <div class="dropdown-container">
+                <label for="placeParentButton">{{translate.getTranslate("Place Parent")}}</label>
+                <button id="placeParentButton" #placeParentButton
+                    (click)="toggleDropdown(placeParentButton, placeParentDropdownItems)"
+                    class="dropdown btn">{{showParentCityName}}<i
+                        class="bi bi-arrow-down-short"></i></button>
+                <ol #placeParentDropdownItems class="dropdown-items d-none">
+                    <li *ngFor="let it of parentPlaces"
+                        (click)="newPlace['parentCityName'] = it[0]; showParentCityName = it[1]['names'][translate.getCurrentLang()] ; toggleDropdown(placeParentButton, placeParentDropdownItems)"
+                        [value]="it[0]" [class.active]="newPlace['parentCityName'] == it[0]">
+                        {{translate.getTranslate(it[1]['names'][translate.getCurrentLang()])}}</li>
+                </ol>
+                <div *ngIf="!placeParentDropdownItems.classList.contains('d-none')"
+                    (click)="toggleDropdown(placeParentButton, placeParentDropdownItems)" class="dissmiss-container">
+                </div>
+            </div>
+
+        </div>
+        <button (click)="createNewPlace()" [class.disabled]="!canCreateNewPlace()" class="btn create-btn">{{translate.getTranslate('Create New Place')}}<i
+                class="bi bi-plus-circle"></i></button>
+    </div>
+    <button #continueBtn
+        (click)="toggleDropdown(continueBtn, continueContainer); toggleSelections(newOneContainer, createNewOneBtn, continueContainer, continueBtn, 'continue')"
+        class="btn continue-btn">{{translate.getTranslate('Continue')}}!<i class="bi bi-arrow-down-short"></i></button>
+    <div #continueContainer class="continue d-none">
+        <a [routerLink]="p[0]" class="place" *ngFor="let p of allPlaces">
+            <div>
+                <h1>{{p[1]["names"][translate.getCurrentLang()]}}</h1>
+            </div>
+            <img [style]="'object-position:'+p[1]['images'][0]['imagePosition']+';'"
+                [src]="p[1]['images'][0]['imageUrl']" alt="">
+        </a>
+    </div>
+    <div style="margin-top: 100px;"></div>
+</main>

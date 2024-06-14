@@ -1,0 +1,52 @@
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<main class="theme-changer theme-dark">
+    <div class="carousel" (mouseover)="holdCarousel()" (mouseout)="releaseCarousel()">
+        <div class="carousel-items">
+            <div class="item" [class.active]="i == 0" *ngFor="let item of randomCitiesList;let i = index;">
+                <a [href]="item.link"><img [style.object-position]="item.images[0].imagePosition"
+                        [src]="item.images[0].imageUrl" alt=""></a>
+                <div class="content user-select-none">
+                    <h1 class="title poppins-medium">{{item.images[0].titles[getCurrentLang()]}}</h1>
+                    <p class="text roboto-regular">{{item.images[0].texts[getCurrentLang()]}}</p>
+                    <a (click)="unfocus(photographer)" #photographer class="photographer" rel="nofollow" target="_blank"
+                        [href]="item.images[0].photographerLink">{{getTranslate('Photo by') + " "
+                        +item.images[0].photographer}}<span class="material-symbols-outlined">
+                            open_in_new
+                        </span></a>
+                </div>
+            </div>
+        </div>
+        <div class="controls" *ngIf="randomPlacesList.length > 1">
+            <button (click)="carouselMove('previous')" class="btn previous"><i class="bi bi-arrow-left"></i></button>
+            <button (click)="carouselMove()" class="btn next"><i class="bi bi-arrow-right"></i></button>
+        </div>
+    </div>
+    <div class="down-arrow">
+        <div (click)="focusTo('.lyric-part')">
+            <span class="material-symbols-outlined">
+                explore
+                </span>
+            <p>{{getTranslate('Start Exploring')}}!</p>
+        </div>
+    </div>
+    <div class="lyric-part user-select-none eb-garamond">
+        <h1>"{{sentence[getCurrentLang()].sentence}}"</h1>
+        <q *ngIf="sentence[getCurrentLang()].author != ''"><i class="">{{sentence[getCurrentLang()].author}}</i></q>
+    </div>
+    <div class="discover-container">
+        <div class="title user-select-none">
+            <h1>{{getTranslate('Discover Turkey')}}</h1>
+        </div>
+        <div class="cities" #cities>
+            <a [routerLink]="city.link" class="city" *ngFor="let city of citiesList; let i=index;">
+                <img [src]="city.images[0].imageUrl">
+                <h1 class="name">{{city.names[getCurrentLang()]}}</h1>
+            </a>
+        </div>
+        <div class="controls" *ngIf="cities.clientWidth != cities.scrollWidth">
+            <button (click)="scrollCities('left')" class="btn"><i class="bi bi-arrow-left"></i></button>
+            <button (click)="scrollCities('right')" class="btn"><i class="bi bi-arrow-right"></i></button>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,45 @@
+nav.theme-dark {
+  background-color: var(--colorDark);
+  box-shadow: 0px 0px 10px rgb(12, 12, 12);
+}
+
+nav.theme-dark .links a,
+nav.theme-dark .dropdown-links a {
+  color: var(--colorLight);
+}
+nav.theme-dark .dropdown-links li:hover > a,
+nav.theme-dark .dropdown-links li a:focus {
+  color: var(--colorDark);
+  background-color: var(--colorLight);
+}
+
+nav.theme-dark .links li:hover,
+nav.theme-dark .links li a:focus{
+  text-shadow: 0px 0px 10px var(--colorLight);
+}
+
+nav.theme-dark .dropdown-links li:hover,
+nav.theme-dark .dropdown-links li a:focus {
+  background-color: var(--colorLight);
+}
+
+nav.theme-dark .btn:not(.lang-btn) {
+  color: var(--colorLight);
+}
+nav.theme-dark .btn:hover:not(.lang-btn),
+nav.theme-dark .btn:focus:not(.lang-btn) {
+  text-shadow: 0px 0px 10px var(--colorLight);
+}
+nav.theme-dark .dropdown-links {
+  background-color: var(--colorDark);
+  border: 1px solid var(--colorLight);
+}
+nav.theme-dark .dropdown-links::-webkit-scrollbar-thumb {
+  background-color: var(--colorLight);
+  border-radius: 10px;
+}
+
+nav.theme-dark .lang-dropdown{
+  background-color: var(--colorDark);
+  border:1px solid var(--colorLight);
+}

@@ -1,0 +1,157 @@
+@use "../../../styles.scss";
+main {
+  margin-top: 90px;
+  padding-bottom: 100px;
+  @include styles.font-roboto-regular();
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  min-height: 80dvh;
+  width: 100%;
+  & > .container {
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    & > img {
+      width: 50%;
+    }
+    & > h1 {
+      margin-bottom: 20px;
+      @include styles.font-poppins-regular();
+      user-select: none;
+      font-size: clamp(70px, 8vw, 100px);
+    }
+    & > h2 {
+      margin-bottom: 20px;
+      @include styles.font-poppins-regular();
+      user-select: none;
+      font-size: clamp(20px, 8vw, 35px);
+    }
+    .input {
+      margin-bottom: 10px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      * {
+        border: none;
+        background-color: var(--colorDynamicBackground);
+        color: var(--colorDynamicText);
+      }
+      input {
+        border-radius: 10px;
+        padding: 10px;
+        flex: 10;
+        font-size: clamp(25px, 8vw, 35px);
+        width: 100%;
+        border: 1px solid var(--colorDynamicText);
+        &.password {
+          border-right: none;
+          border-end-end-radius: 0;
+          border-start-end-radius: 0;
+        }
+        transition: 0.5s;
+        &:focus {
+          outline: none;
+          transform: scale(1.1);
+          box-shadow: 0px 0px 10px black;
+        }
+      }
+      button {
+        font-size: clamp(25px, 8vw, 30px);
+        flex: 1;
+        border: 1px solid var(--colorDynamicText);
+        cursor: pointer;
+        border-end-end-radius: 10px;
+        border-start-end-radius: 10px;
+        transition: 0.5s;
+        padding: 5px;
+      }
+    }
+    & > button {
+      cursor: pointer;
+      color: var(--colorWhite);
+      background-color: var(--colorSuccess);
+      padding: 10px;
+      border-radius: 10px;
+      font-size: clamp(25px, 8vw, 30px);
+      align-self: flex-end;
+      transition: 0.5s;
+      &:focus{
+        box-shadow: 0px 0px 10px black;
+        transform: scale(1.1);
+      }
+    }
+    & > a {
+      margin-top: 30px;
+      font-size: clamp(20px, 8vw, 30px);
+      color: var(--colorAccent);
+      cursor: pointer;
+    }
+    @media screen and (max-width: 1000px) {
+      width: 80%;
+      & > img {
+        width: 80%;
+      }
+    }
+    & > .logout-btn {
+      i {
+        font-size: clamp(35px, 8vw, 50px);
+      }
+      background-color: var(--colorDanger);
+    }
+  }
+  //UserLogiedIn == true
+  & > .container > .user-item {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 30px;
+    .title {
+      max-width: 80%;
+      padding-right: 10px;
+      font-size: clamp(25px, 4vw, 50px);
+      user-select: none;
+    }
+    .value {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      margin-left: auto;
+      h1 {
+        font-size: clamp(20px, 4vw, 45px);
+        text-align: end;
+        max-lines: 2;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+      }
+      button {
+        align-self: flex-end;
+        margin-right: 10px;
+        margin-top: 10px;
+        cursor: pointer;
+        width: 80%;
+        background-color: var(--colorAccent);
+        p {
+          font-size: clamp(15px, 4vw, 25px);
+        }
+        i {
+          font-size: clamp(20px, 4vw, 35px);
+        }
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}

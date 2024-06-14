@@ -1,0 +1,192 @@
+@use "../../../styles";
+main {
+  margin-top: 85px;
+  min-height: 80dvh;
+  display: flex;
+  flex-direction: column;
+  & > h1 {
+    @include styles.font-poppins-medium();
+    font-size: clamp(50px, 8vw, 120px);
+    user-select: none;
+    text-align: center;
+  }
+  .token-p{
+    text-align: center;
+    @include styles.font-poppins-regular();
+    font-size: clamp(20px, 4vw, 30px);
+    span{
+      color: var(--colorOrange);
+    }
+  }
+  .timeline,
+  .available-plans {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    &::-webkit-scrollbar {
+      background-color: transparent;
+      height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--colorLight);
+      border-radius: 10px;
+    }
+    z-index: 0;
+    padding: 2px;
+    width: 100%;
+    height: 300px;
+    &:not(.available-plans) {
+      background-color: var(--colorOrange);
+    }
+    display: flex;
+    gap: 10px;
+    .time {
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+      .buttons {
+        margin-top: auto;
+        margin-left: auto;
+        button {
+          transition: 0.5s;
+          &:hover {
+            transform: scale(1.1);
+          }
+          margin-left: 10px;
+          cursor: pointer;
+
+          &.success {
+            background-color: var(--colorSuccess);
+          }
+          &.danger {
+            background-color: var(--colorDanger);
+          }
+          &.accent {
+            background-color: var(--colorAccent);
+          }
+          padding: 10px;
+          border-radius: 10px;
+        }
+      }
+      padding: 10px;
+      border: 1px solid var(--colorLight);
+      height: 100%;
+      max-width: 300px;
+      position: relative;
+      img {
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .date {
+        padding-top: 10px;
+      }
+      .container {
+        background-color: rgba(0, 0, 0, 0.5);
+        max-height: 50%;
+        z-index: 3;
+        h2,
+        p {
+          overflow: hidden;
+          @include styles.font-poppins-medium();
+          color: var(--colorLight);
+          font-size: clamp(25px, 45px, 60px);
+          text-align: center;
+          user-select: none;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+        p {
+          @include styles.font-roboto-regular();
+          font-size: clamp(20px, 10px, 40px);
+        }
+        .edit-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          input {
+            position: relative;
+            @include styles.font-roboto-regular();
+            width: 100%;
+            border: none;
+            text-align: center;
+            font-size: clamp(20px, 40px, 40px);
+            background-color: transparent;
+            color: var(--colorLight);
+            padding-bottom: 10px;
+            &:focus {
+              outline: none;
+            }
+            border-bottom: 1px solid var(--colorLight);
+          }
+          .buttons {
+            padding-top: 10px;
+            align-self: flex-end;
+            display: flex;
+            button {
+              margin-bottom: 10px;
+              margin-left: 5px;
+              align-self: flex-end;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              cursor: pointer;
+              background-color: var(--colorSuccess);
+              border-radius: 10px;
+              span {
+                font-size: clamp(50px, 50px, 100px);
+              }
+              width: fit-content;
+            }
+          }
+        }
+      }
+      transition: 0.5s;
+    }
+    .empty {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      user-select: none;
+      text-align: center;
+      color: var(--colorLight);
+      h1 {
+        font-size: clamp(60px, 8vw, 100px);
+        margin-bottom: 10px;
+      }
+      span {
+        font-size: clamp(60px, 8vw, 100px);
+      }
+    }
+  }
+  .available-plans {
+    margin-top: 50px;
+  }
+  .chat-gpt-info {
+    margin-top: 10px;
+    font-size: clamp(20px, 3vw, 25px);
+    text-align: center;
+    color: gray;
+    user-select: none;
+  }
+  .plan-ai {
+    width: fit-content;
+    padding: 10px;
+    background-color: var(--colorAccent);
+    @include styles.font-roboto-regular();
+    font-size: clamp(20px, 8vw, 40px);
+    border-radius: 10px;
+    color: var(--colorLight);
+    margin-top: 10px;
+    align-self: center;
+    cursor: pointer;
+  }
+}

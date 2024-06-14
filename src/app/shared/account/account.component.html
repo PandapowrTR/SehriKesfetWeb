@@ -1,0 +1,50 @@
+<main *ngIf="!userLogedIn()">
+    <div class="container">
+        <img src="../../../assets/imgs/Rimors-logo.png" alt="">
+        <h1>{{translate.getTranslate(isLogin ? "Login" : "Create Account")}}</h1>
+        <div class="input">
+            <input #emailInput (blur)="blurInput(emailInput)"
+                (focus)="focusInput(emailInput)" type="text" [placeholder]="translate.getTranslate('Email')">
+        </div>
+        <div class="input">
+            <input (blur)="blurInput(passwordInput, passwordToggleBtn)"
+                (focus)="focusInput(passwordInput, passwordToggleBtn)" #passwordInput class="password" type="password"
+                [placeholder]="translate.getTranslate('Password')">
+            <button #passwordToggleBtn (click)="togglePassword(passwordInput, passwordToggleBtn)"><i
+                    class="bi bi-eye-slash-fill"></i></button>
+        </div>
+        <div class="input" *ngIf="!isLogin">
+            <input id="passwordAgainInput" (blur)="blurInput(passwordAgainInput, passwordToggleBtn)"
+                (focus)="focusInput(passwordAgainInput, passwordToggleBtn)" #passwordAgainInput class="password" type="password"
+                [placeholder]="translate.getTranslate('Password (Again)')">
+            <button #passwordToggleBtn (click)="togglePassword(passwordAgainInput, passwordToggleBtn)"><i
+                    class="bi bi-eye-slash-fill"></i></button>
+        </div>
+        <button (click)="isLogin ? login(sendButton, emailInput, passwordInput) : register(sendButton,emailInput, passwordInput)" #sendButton
+            class="btn">{{translate.getTranslate(isLogin ? "Login" : "Create Account")}}</button>
+        <a (click)="isLogin = !isLogin">{{translate.getTranslate(isLogin ? 'Not Have an Account': 'Already Have an
+            Account')}}?</a>
+    </div>
+</main>
+
+<main *ngIf="userLogedIn()">
+    <div class="container">
+        <img src="../../../assets/imgs/Rimors-logo.png" alt="">
+        <h1>{{translate.getTranslate('Welcome')}}</h1>
+        <h2>{{accountService.user?.email}}</h2>
+        <div class="user-item" *ngFor="let item of getUserItems()">
+            <h1 class="title">{{translate.getTranslate(item[0])}}</h1>
+            <div class="value">
+                <h1 *ngIf="!['sessionKey'].includes(item[0])">{{!['password'].includes(item[0]) ? item[1] : "*******"}}</h1>
+                <button (click)="resetSessionKey()" class="btn" style="padding: 15px; padding-inline:25px;" *ngIf="item[0] == 'sessionKey'">
+                    <p>{{translate.getTranslate('Exit')}}</p><i class="bi bi-box-arrow-right"></i>
+                </button>
+                <button (click)="resetPassword()" class="btn" *ngIf="item[0] == 'password'">
+                    <p>{{translate.getTranslate('Reset')}}</p><i class="bi bi-arrow-clockwise"></i>
+                </button>
+            </div>
+
+        </div>
+        <button (click)="logout()" class="btn logout-btn"><i class="bi bi-door-closed"></i><p>{{translate.getTranslate('Logout')}}</p></button>
+    </div>
+</main>

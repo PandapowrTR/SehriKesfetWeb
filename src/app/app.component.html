@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>
+<app-ai-chat-btn *ngIf="showChatBtn"></app-ai-chat-btn>
+<div class="d-none theme-changer theme-dark loading-container poppins-regular">
+    <div>
+        <h1>{{getTranslate("Loading")}}</h1>
+        <i class="bi bi-arrow-clockwise"></i>
+    </div>
+</div>
+<div class="alert-container theme-changer theme-dark">
+    <div class="alert" [id]="i" [class]="alert.type" #alertElement *ngFor="let alert of getAlerts(); let i = index">
+        <i *ngIf="alert.type == 'error'" class="bi bi-exclamation-circle-fill"></i>
+        <i *ngIf="alert.type == 'warning'" class="bi bi-exclamation-triangle-fill"></i>
+        <i *ngIf="alert.type == 'info'" class="bi bi-info-circle-fill"></i>
+        <div class="content">
+            <h1 class="title poppins-medium">{{alert.title}}</h1>
+            <div class="body">
+                <p class="text roboto-regular">{{alert.content}}</p>
+            </div>
+        </div>
+        <button (click)="removeElement(alertElement)"><i class="bi bi-x-lg"></i></button>
+    </div>
+</div>
+
+<div class="app-component-modal modal-container theme-changer theme-dark d-none">
+    <div [style.z-index]="getModal()['canNavbar'] ? '9998' : '10000'" *ngIf="getModal()">
+        <div class="modal">
+            <div class="title user-select-none poppins-medium">
+                <h1>{{getTranslate(getModal()['title'])}}</h1>
+                <button (click)="removeModal(true)" class="btn" *ngIf="getModal()['closeBtn']"><i
+                        class="bi bi-x-lg"></i></button>
+            </div>
+            <div class="body roboto-regular">
+                <input class="modal-inputs" [name]="inp['name']" [placeholder]="inp['placeHolder']" [type]="inp['type']"
+                    *ngFor="let inp of getModal()['inputs']">
+                <p>{{getTranslate(getModal()['content'])}}</p>
+            </div>
+            <div class="footer">
+                <button [class]="action['color']" class="btn" (click)="action['buttonFunction'](getModalInputs())"
+                    *ngFor="let action of getModal()['actions']">{{getTranslate(action['buttonText'])}}</button>
+            </div>
+        </div>
+    </div>
+
+</div>

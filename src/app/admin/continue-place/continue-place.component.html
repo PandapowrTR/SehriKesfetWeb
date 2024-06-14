@@ -1,0 +1,401 @@
+<main class="theme-changer theme-dark" *ngIf="currentPlace">
+    <div class="title">
+        <h1>{{currentPlace['names'][translate.getCurrentLang()]}}</h1>
+        <a target="_blank" [routerLink]="currentPlace['link']">{{translate.getTranslate('See on Live')}}</a>
+        <div class="options">
+            <div class="language-option">
+                <button #cLanguageBtn (click)="toggleDropdown(cLanguageBtn, languageOption);"
+                    class="btn changeLanguage-btn">{{translate.getTranslate(editLanguage!)}}<img class="lang-img"
+                        [src]="translate.getTranslateLanguage('flag', editLanguage!)"><i
+                        class="bi bi-arrow-down-short"></i></button>
+                <div #languageOption class="changeLanguage d-none">
+                    <li *ngFor="let tra of translates"><button tabindex="-1" class="lang-btn btn"
+                            (click)="editLanguage = tra[0]; toggleDropdown(cLanguageBtn, languageOption)"><img
+                                class="lang-img" [src]="tra[1]['flag']"></button></li>
+                </div>
+                <div class="dissmissContainer" *ngIf="!languageOption.classList.contains('d-none')"
+                    (click)="toggleDropdown(cLanguageBtn, languageOption)">
+
+                </div>
+            </div>
+            <div class="active-option">
+                <label for="placeisActive"
+                    [title]="translate.getTranslate('placeisActive')">{{translate.getTranslate('Active')}}</label>
+                <input autocomplete="off" type="checkbox" id="placeisActive" [checked]="currentPlace['active']"
+                    (click)="currentPlace['active'] = !currentPlace['active']; ''"
+                    [title]="translate.getTranslate('placeisActive')">
+            </div>
+            <div class="delete-btn">
+                <button class="btn" (click)="deleteCurrentPlace()">{{translate.getTranslate('Delete Place')}}</button>
+            </div>
+            <div class="load-file-btn">
+                <button class="btn" (click)="loadFile()">{{translate.getTranslate('Load File')}}</button>
+            </div>
+            <div class="save-btn">
+                <button class="btn" (click)="saveCurrentPlace()">{{translate.getTranslate('Save')}}</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="item" *ngFor="let item of currentPlace['pageContents']; let ind = index">
+        <button class="delete-item btn" (click)="deleteItem(ind)"><i class="bi bi-trash"></i></button>
+        <div class="info-title">
+            <h1>{{translate.getTranslate('Header')}}</h1>
+            <hr>
+        </div>
+        <div class="head">
+            <div class="left">
+                <div class="title">
+                    <label [for]="ind + 'left-title-input'">{{translate.getTranslate('Title')}}</label>
+                    <input [value]="currentPlace['pageContents'][ind]['head']['left']['title']['texts'][editLanguage] ?? ''"
+                        autocomplete="off" #headTitle
+                        (input)="currentPlace['pageContents'][ind]['head']['left']['title']['texts'][editLanguage] = headTitle.value"
+                        [id]="ind + 'left-title-input'" type="text">
+                </div>
+                <div class="subtitle">
+                    <label [for]="ind + 'left-subtitle-input'">{{translate.getTranslate('Subtitle')}}</label>
+                    <input
+                        [value]="currentPlace['pageContents'][ind]['head']['left']['subtitle']['texts'][editLanguage] ?? ''"
+                        #headSubtitle autocomplete="off"
+                        (input)="currentPlace['pageContents'][ind]['head']['left']['subtitle']['texts'][editLanguage] = headSubtitle.value"
+                        [id]="ind + 'left-subtitle-input'" type="text">
+                </div>
+            </div>
+            <div class="center">
+
+            </div>
+            <div class="right">
+                <div class="icon">
+                    <div>
+                        <label [for]="ind + 'right-icon-input'">{{translate.getTranslate('Icon Content')}}</label>
+                        <input [value]="currentPlace['pageContents'][ind]['head']['right']['icon']['content'] ?? ''" #headIcon
+                            autocomplete="off"
+                            (input)="currentPlace['pageContents'][ind]['head']['right']['icon']['content'] = headIcon.value"
+                            [id]="ind + 'right-icon-input'" class="right-icon-input" type="text">
+                    </div>
+                    <div>
+                        <label for="iconType">{{translate.getTranslate('Icon Type')}}</label>
+                        <button #iconType id="iconType" (click)="toggleDropdown(iconType, iconOption);"
+                            class="btn iconType-btn dropdown-btn">{{translate.getTranslate(currentPlace['pageContents'][ind]['head']['right']['icon']['type'])}}<i
+                                class="bi bi-arrow-down-short"></i></button>
+                        <div #iconOption class="iconType dropdown-list d-none">
+                            <li [class.selected]="currentPlace['pageContents'][ind]['head']['right']['icon']['type'] == t"
+                                *ngFor="let t of ['google', 'bootstrap']"><button
+                                    (click)="currentPlace['pageContents'][ind]['head']['right']['icon']['type'] = t; toggleDropdown(iconType, iconOption)">{{translate.getTranslate(t)}}</button>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+                <div class="dissmissContainer" *ngIf="!iconOption.classList.contains('d-none')"
+                    (click)="toggleDropdown(iconType, iconOption)">
+                </div>
+                <div class="audios">
+                    <div>
+                        <label [for]="ind  + 'audio-input'">{{translate.getTranslate('Audio URL')}}</label>
+                        <input [value]="currentPlace['pageContents'][ind]['head']['right']['audios'][editLanguage] ?? ''"
+                            #headRightAudio autocomplete="off"
+                            (input)="currentPlace['pageContents'][ind]['head']['right']['audios'][editLanguage] = headRightAudio.value"
+                            [id]="ind  + 'audio-input'" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info-title">
+            <h1>{{translate.getTranslate('Content')}}</h1>
+            <hr>
+        </div>
+        <div class="body">
+            <div class="body-item" *ngFor="let bodyItem of item['body']; let bind = index;">
+                <button (click)="deleteBodyItem(ind, bind)" class="btn delete-item"><i class="bi bi-trash"></i></button>
+                <div class="dropdown-container">
+                    <button #bodyItemType (click)="toggleDropdown(bodyItemType, bodyItemOption);"
+                        class="btn bodyItemType-btn dropdown-btn">{{translate.getTranslate(currentPlace['pageContents'][ind]['body'][bind]['type'])}}<i
+                            class="bi bi-arrow-down-short"></i></button>
+                    <div #bodyItemOption class="bodyItemType dropdown-list d-none">
+                        <li [class.selected]="currentPlace['pageContents'][ind]['body'][bind]['type'] == t"
+                            *ngFor="let t of ['text', 'image-list', 'plan-my-day']"><button
+                                (click)="setBodyItemType(ind, bind, t); toggleDropdown(bodyItemType, bodyItemOption)">{{translate.getTranslate(t)}}</button>
+                        </li>
+                    </div>
+                    <div class="dissmissContainer" *ngIf="!bodyItemOption.classList.contains('d-none')"
+                        (click)="toggleDropdown(bodyItemType, bodyItemOption)">
+                    </div>
+                </div>
+
+                <div class="values text" *ngIf="bodyItem['type'] == 'text'">
+                    <div class="image">
+                        <h1>{{translate.getTranslate('Image')}}</h1>
+                        <div class="dropdown-container">
+                            <label
+                                [for]="ind + '' + bind + 'text-image-type'">{{translate.getTranslate('Type')}}</label>
+                            <button [id]="ind + '' + bind + 'text-image-type'" #textImageTypeBtn
+                                (click)="toggleDropdown(textImageTypeBtn, textImageTypeOption);"
+                                class="btn textImageTypeBtn-btn dropdown-btn">{{translate.getTranslate(currentPlace['pageContents'][ind]['body'][bind]['image']['type'])}}<i
+                                    class="bi bi-arrow-down-short"></i></button>
+                            <div #textImageTypeOption class="textImageTypeBtn dropdown-list d-none">
+                                <li [class.selected]="currentPlace['pageContents'][ind]['body'][bind]['image']['type'] == t"
+                                    *ngFor="let t of ['', 'title-image']"><button
+                                        (click)="currentPlace['pageContents'][ind]['body'][bind]['image']['type'] = t; toggleDropdown(textImageTypeBtn, textImageTypeOption)">{{translate.getTranslate(t)}}</button>
+                                </li>
+                            </div>
+                            <div class="dissmissContainer" *ngIf="!textImageTypeOption.classList.contains('d-none')"
+                                (click)="toggleDropdown(textImageTypeBtn, textImageTypeOption)">
+                            </div>
+                        </div>
+                        <div>
+                            <label
+                                [for]="ind + '' + bind + 'text-image-src'">{{translate.getTranslate('Image(link)')}}</label>
+                            <input [value]="currentPlace['pageContents'][ind]['body'][bind]['image']['src'] ?? ''"
+                                #bodyVTextImageUrl autocomplete="off"
+                                (input)="currentPlace['pageContents'][ind]['body'][bind]['image']['src']= bodyVTextImageUrl.value"
+                                [id]="ind + '' + bind + 'text-image-src'" type="url">
+                        </div>
+                        <div>
+                            <label
+                                [for]="ind + '' + bind + 'text-image-alt'">{{translate.getTranslate('Explanation')}}</label>
+                            <input [value]="currentPlace['pageContents'][ind]['body'][bind]['image']['alt'] ?? ''"
+                                #bodyVTextImageExp autocomplete="off"
+                                (input)="currentPlace['pageContents'][ind]['body'][bind]['image']['alt']= bodyVTextImageExp.value"
+                                [id]="ind + '' + bind + 'text-image-alt'" type="url">
+                        </div>
+                        <div>
+                            <label
+                                [for]="ind + '' + bind + 'text-image-style'">{{translate.getTranslate('Style(css)')}}</label>
+                            <input [value]="currentPlace['pageContents'][ind]['body'][bind]['image']['style'] ?? ''"
+                                #bodyVTextImageCss autocomplete="off"
+                                (input)="currentPlace['pageContents'][ind]['body'][bind]['image']['style']= bodyVTextImageCss.value"
+                                [id]="ind + '' + bind + 'text-image-style'" type="text">
+                        </div>
+                        <div class="dropdown-container">
+                            <label
+                                [for]="ind + '' + bind + 'text-image-class'">{{translate.getTranslate('Class')}}</label>
+                            <button [id]="ind + '' + bind + 'text-image-class'" #bodyTextImageClassBtn
+                                (click)="toggleDropdown(bodyTextImageClassBtn, bodyTextImageClassOption);"
+                                class="btn bodyTextImageClassBtn-btn dropdown-btn"><i
+                                    class="bi bi-plus-lg"></i></button>
+                            <div #bodyTextImageClassOption class="bodyTextImageClassBtn dropdown-list d-none">
+                                <li [class.selected]="currentPlace['pageContents'][ind]['body'][bind]['image']['class'].includes(t)"
+                                    *ngFor="let t of bodyImageClasses"><button
+                                        (click)="addToClassList(ind, bind, t); toggleDropdown(bodyTextImageClassBtn, bodyTextImageClassOption)">{{translate.getTranslate(t)}}</button>
+                                </li>
+                            </div>
+                            <div class="dissmissContainer"
+                                *ngIf="!bodyTextImageClassOption.classList.contains('d-none')"
+                                (click)="toggleDropdown(bodyTextImageClassBtn, bodyTextImageClassOption)">
+                            </div>
+                            <label class="selected-classes"
+                                *ngIf="currentPlace['pageContents'][ind]['body'][bind]['image']['class'].trim() != ''">{{translate.getTranslate('Selected
+                                Classes')}}:</label>
+                            <div class="class-list">
+                                <span *ngFor="let c of bodyImageClasses">
+                                    <li
+                                        *ngIf="currentPlace['pageContents'][ind]['body'][bind]['image']['class'].includes(c)">
+                                        {{translate.getTranslate(c)}} <button (click)="addToClassList(ind, bind, c)"
+                                            class="btn"><i class="bi bi-x-lg"></i></button></li>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="title">
+                        <h1>{{translate.getTranslate('Title')}}</h1>
+                        <hr>
+                        <div>
+                            <label
+                                [for]="ind + '' + bind + 'text-title-text'">{{translate.getTranslate('Text')}}</label>
+                            <input
+                                [value]="currentPlace['pageContents'][ind]['body'][bind]['title']['texts'][editLanguage] ?? ''"
+                                #bodyVTextTitle autocomplete="off"
+                                (input)="currentPlace['pageContents'][ind]['body'][bind]['title']['texts'][editLanguage] = bodyVTextTitle.value"
+                                [id]="ind + '' + bind + 'text-title-text'" type="text">
+                        </div>
+                    </div>
+                    <div class="content">
+                        <h1>{{translate.getTranslate('Content')}}</h1>
+                        <hr>
+                        <div>
+                            <label
+                                [for]="ind + '' + bind + 'text-content-text'">{{translate.getTranslate('Text')}}</label>
+                            <textarea
+                                [value]="currentPlace['pageContents'][ind]['body'][bind]['content']['texts'][editLanguage] ?? ''"
+                                #bodyVTextContent
+                                (input)="currentPlace['pageContents'][ind]['body'][bind]['content']['texts'][editLanguage] = bodyVTextContent.value"
+                                [id]="ind + '' + bind + 'text-content-text'"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="values image-list" *ngIf="bodyItem['type'] == 'image-list'">
+                    <div class="class">
+                        <div class="dropdown-container">
+                            <label
+                                [for]="ind + '' + bind + 'image-list-image-class'">{{translate.getTranslate('Class')}}</label>
+                            <button [id]="ind + '' + bind + 'image-list-image-class'" #bodyImageListBtn
+                                (click)="toggleDropdown(bodyImageListBtn, bodyImageListOption);"
+                                class="btn bodyImageListBtn-btn dropdown-btn"><i class="bi bi-plus-lg"></i></button>
+                            <div #bodyImageListOption class="bodyImageListBtn dropdown-list d-none">
+                                <li [class.selected]="currentPlace['pageContents'][ind]['body'][bind]['class'].includes(t)"
+                                    *ngFor="let t of bodyImageListClasses"><button
+                                        (click)="addToImageClassList(ind, bind, t); toggleDropdown(bodyImageListBtn, bodyImageListOption)">{{translate.getTranslate(t)}}</button>
+                                </li>
+                            </div>
+                            <div class="dissmissContainer" *ngIf="!bodyImageListOption.classList.contains('d-none')"
+                                (click)="toggleDropdown(bodyImageListBtn, bodyImageListOption)">
+                            </div>
+                            <label class="selected-classes"
+                                *ngIf="currentPlace['pageContents'][ind]['body'][bind]['class'].trim() != ''">{{translate.getTranslate('Selected
+                                Classes')}}:</label>
+                            <div class="class-list">
+                                <span *ngFor="let c of bodyImageListClasses">
+                                    <li *ngIf="currentPlace['pageContents'][ind]['body'][bind]['class'].includes(c)">
+                                        {{translate.getTranslate(c)}} <button
+                                            (click)="addToImageClassList(ind, bind, c)" class="btn"><i
+                                                class="bi bi-x-lg"></i></button></li>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="title">
+                        <div>
+                            <label
+                                [for]="ind + '' + bind + 'image-list-title'">{{translate.getTranslate('Title')}}</label>
+                            <input #bodyVImListTitle autocomplete="off"
+                                (input)="currentPlace['pageContents'][ind]['body'][bind]['title'][editLanguage] = bodyVImListTitle.value"
+                                [id]="ind + '' + bind + 'image-list-title'" type="text">
+                        </div>
+                    </div>
+                    <div class="content">
+                        <h1>{{translate.getTranslate('Content')}}</h1>
+                        <hr>
+                        <div>
+                            <div
+                                *ngFor="let imageListContent of currentPlace['pageContents'][ind]['body'][bind]['content'];  let imlInd = index;">
+                                <div class="input-container">
+                                    <label
+                                        [for]="ind + '' + bind + '' + imlInd + 'image-list-content-image'">{{translate.getTranslate('Image(link)')}}</label>
+                                    <input
+                                        [value]="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['image'] ?? ''"
+                                        #bodyVImListContentImg autocomplete="off"
+                                        (input)="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['image'] = bodyVImListContentImg.value"
+                                        [id]="ind + '' + bind + '' + imlInd + 'image-list-content-image'" type="url">
+                                </div>
+                                <div class="input-container"
+                                    *ngIf="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['inWebsiteUrl'].trim() == '' || currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['url'].trim() != ''">
+                                    <label
+                                        [for]="ind + '' + bind + '' + imlInd + 'image-list-url'">{{translate.getTranslate('Url')}}</label>
+                                    <input #bodyImageListUrlInputhtml
+                                        [value]="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['url'] ?? ''"
+                                        autocomplete="off"
+                                        (input)="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['url'] = bodyImageListUrlInputhtml.value"
+                                        [id]="ind + '' + bind + '' + imlInd + 'image-list-url'" type="url">
+                                </div>
+                                <div class="input-container"
+                                    *ngIf="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['url'].trim() == '' || currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['inWebsiteUrl'].trim() != ''">
+                                    <label
+                                        [for]="ind + '' + bind + '' + imlInd + 'image-list-inwebsiteurl'">{{translate.getTranslate('In
+                                        Website Url')}}</label>
+                                    <input #bodyImageListInWebsiteUrlInputhtml
+                                        [value]="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['inWebsiteUrl'] ?? ''"
+                                        autocomplete="off"
+                                        (input)="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['inWebsiteUrl'] = bodyImageListInWebsiteUrlInputhtml.value"
+                                        [id]="ind + '' + bind + '' + imlInd + 'image-list-inwebsiteurl'" type="url">
+                                </div>
+                                <div class="dropdown-container">
+                                    <label
+                                        [for]="ind + '' + bind + 'image-list-target'">{{translate.getTranslate('Type')}}</label>
+                                    <button [id]="ind + '' + bind + 'image-list-target'" #imageListTargetBtn
+                                        (click)="toggleDropdown(imageListTargetBtn, imageListTargetOption);"
+                                        class="btn imageListTargetBtn-btn dropdown-btn">{{translate.getTranslate(currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['target'])}}<i
+                                            class="bi bi-arrow-down-short"></i></button>
+                                    <div #imageListTargetOption class="imageListTargetBtn dropdown-list d-none">
+                                        <li [class.selected]="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['target'] == t"
+                                            *ngFor="let t of ['_self', '_blank']"><button
+                                                (click)="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['target'] = t; toggleDropdown(imageListTargetBtn, imageListTargetOption)">{{translate.getTranslate(t)}}</button>
+                                        </li>
+                                    </div>
+                                    <div class="dissmissContainer"
+                                        *ngIf="!imageListTargetOption.classList.contains('d-none')"
+                                        (click)="toggleDropdown(imageListTargetBtn, imageListTargetOption)">
+                                    </div>
+                                </div>
+                                <div class="input-container">
+                                    <label
+                                        [for]="ind + '' + bind + '' + imlInd + 'image-list-title'">{{translate.getTranslate('Title')}}</label>
+                                    <input
+                                        [value]="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['titles'][editLanguage] ?? ''"
+                                        #bodyVImListTitle autocomplete="off"
+                                        (input)="currentPlace['pageContents'][ind]['body'][bind]['content'][imlInd]['titles'][editLanguage] = bodyVImListTitle.value"
+                                        [id]="ind + '' + bind + '' + imlInd + 'image-list-title'" type="text">
+                                </div>
+
+                            </div>
+                        </div>
+                        <button
+                            (click)="currentPlace['pageContents'][ind]['body'][bind]['content'].push(defaultValues['image-list']['content'][0])"
+                            class="btn"><i class="bi bi-plus-lg"></i></button>
+                    </div>
+                </div>
+                <div class="values plan-my-day" *ngIf="bodyItem['type'] == 'plan-my-day'">
+                    <div class="activity"
+                        *ngFor="let p of currentPlace['pageContents'][ind]['body'][bind]['plans']; let pmdIndex = index">
+                        <h1 class="poppins-regular">{{translate.getTranslate('Activity')}}</h1>
+                        <div class="title">
+                            <div>
+                                <label
+                                    [for]="ind + '' + bind + 'plan-my-day-title'">{{translate.getTranslate('Title')}}</label>
+                                <input #bodyVPMDTitle [value]="p['title'][editLanguage]  ?? ''" autocomplete="off"
+                                    (input)="currentPlace['pageContents'][ind]['body'][bind]['plans'][pmdIndex]['title'][editLanguage] = bodyVPMDTitle.value"
+                                    [id]="ind + '' + bind + 'plan-my-day-title'" type="text">
+                            </div>
+                        </div>
+                        <div class="subtitle">
+                            <div>
+                                <label
+                                    [for]="ind + '' + bind + 'plan-my-day-subtitle'">{{translate.getTranslate('Subtitle')}}</label>
+                                <input #bodyVPMDSubTitle [value]="p['subtitle'][editLanguage]  ?? ''" autocomplete="off"
+                                    (input)="currentPlace['pageContents'][ind]['body'][bind]['plans'][pmdIndex]['subtitle'][editLanguage] = bodyVPMDSubTitle.value"
+                                    [id]="ind + '' + bind + 'plan-my-day-subtitle'" type="text">
+                            </div>
+                        </div>
+                        <div class="image">
+                            <div>
+                                <label
+                                    [for]="ind + '' + bind + 'plan-my-day-image'">{{translate.getTranslate('Image')}}</label>
+                                <input #bodyVPMDImage [value]="p['subtitle']['imageUrl'] ?? ''" autocomplete="off"
+                                    (input)="currentPlace['pageContents'][ind]['body'][bind]['plans'][pmdIndex]['imageUrl'][editLanguage] = bodyVPMDImage.value"
+                                    [id]="ind + '' + bind + 'plan-my-day-image'" type="url">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-activity add-new-item">
+                        <button
+                            (click)="currentPlace['pageContents'][ind]['body'][bind]['plans'].push(defaultValues['plan-my-day']['plans'][0])"
+                            class="btn"><i class="bi bi-plus-lg"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="add-new-item">
+                <div class="dropdown-container">
+                    <button #addNewBodyItemDropdown
+                        (click)="toggleDropdown(addNewBodyItemDropdown, addNewBodyItemOption);"
+                        class="btn addNewBodyItemDropdown-btn dropdown-btn">{{translate.getTranslate(newBodyItemDropdown)}}<i
+                            class="bi bi-arrow-down-short"></i></button>
+                    <div #addNewBodyItemOption class="addNewBodyItemDropdown dropdown-list d-none">
+                        <li [class.selected]="currentPlace['pageContents'][ind]['body']['type'] == t"
+                            *ngFor="let t of ['text', 'image-list', 'plan-my-day']"><button
+                                (click)="newBodyItemDropdown = t;toggleDropdown(addNewBodyItemDropdown, addNewBodyItemOption)">{{translate.getTranslate(t)}}</button>
+                        </li>
+                    </div>
+                    <div class="dissmissContainer" *ngIf="!addNewBodyItemOption.classList.contains('d-none')"
+                        (click)="toggleDropdown(addNewBodyItemDropdown, addNewBodyItemOption)">
+                    </div>
+                </div>
+                <button (click)="addNewBodyItem(ind)" class="btn"><i class="bi bi-plus-lg"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="add-new-item">
+        <button (click)="addNewItem()" class="btn"><i class="bi bi-plus-lg"></i></button>
+    </div>
+</main>
