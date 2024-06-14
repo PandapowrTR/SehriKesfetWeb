@@ -41,7 +41,7 @@
               "./node_modules/bootstrap-icons/font/bootstrap-icons.min.css"
             ],
             "scripts": [
-              "./src/assets/scripts/scrollAnim.js", "./src/assets/scripts/themeManager.js", "./src/assets/scripts/translateService.js"]
+              "./src/scripts/scrollAnim.js", "./src/scripts/themeManager.js", "./src/scripts/translateService.js"]
           },
           "configurations": {
             "production": {
@@ -103,7 +103,7 @@
               "./node_modules/bootstrap-icons/font/bootstrap-icons.min.css"
             ],
             "scripts": [
-              "./src/assets/scripts/scrollAnim.js", "./src/assets/scripts/themeManager.js", "./src/assets/scripts/translateService.js"
+              "./src/scripts/scrollAnim.js", "./src/scripts/themeManager.js", "./src/scripts/translateService.js"
             ]
           }
         }
