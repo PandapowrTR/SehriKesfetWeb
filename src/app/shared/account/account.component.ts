@@ -19,7 +19,7 @@ export class AccountComponent implements OnInit {
     alertService.showLoading();
 
     var sessionKey = localStorage.getItem('sessionKey');
-    if(!sessionKey){
+    if (!sessionKey) {
       alertService.hideLoading();
       return;
     }
@@ -110,7 +110,7 @@ export class AccountComponent implements OnInit {
     emailInput: HTMLInputElement,
     passwordInput: HTMLInputElement
   ) {
-    if (!sendButton.disabled) {
+    if (!sendButton.disabled) { 
       this.setActivityButton(sendButton, false);
       this.alertService.showLoading();
       var passwordAgainInput: HTMLInputElement = document.querySelector(
@@ -123,24 +123,27 @@ export class AccountComponent implements OnInit {
           'error',
           3000
         );
+        this.alertService.hideLoading();
         return;
-      }
-      else if(passwordInput.value.length > 25){
+      } else if (passwordInput.value.length > 25) {
         this.alertService.addAlert(
           this.translate.getTranslate('Error'),
-          this.translate.getTranslate('Password length cannot be bigger than 25'),
+          this.translate.getTranslate(
+            'Password length cannot be bigger than 25'
+          ),
           'error',
           3000
         );
+        this.alertService.hideLoading();
         return;
-      }
-      else if(emailInput.value.length > 50){
+      } else if (emailInput.value.length > 50) {
         this.alertService.addAlert(
           this.translate.getTranslate('Error'),
           this.translate.getTranslate('Email length cannot be bigger than 50'),
           'error',
           3000
         );
+        this.alertService.hideLoading();
         return;
       }
       this.accountService
@@ -161,7 +164,6 @@ export class AccountComponent implements OnInit {
                     'error'
                   );
                 }
-
                 this.alertService.hideLoading();
               });
           } else {
@@ -169,7 +171,8 @@ export class AccountComponent implements OnInit {
               this.translate.getTranslate('Error'),
               this.translate.getTranslate(
                 'There is an Error on Register Prosess. Error:'
-              )+this.translate.getTranslate(res["error"]),"error"
+              ) + this.translate.getTranslate(res['error']),
+              'error'
             );
             this.alertService.hideLoading();
           }
